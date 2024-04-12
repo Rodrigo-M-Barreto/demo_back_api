@@ -37,24 +37,23 @@ public class PacienteController {
 		return ResponseEntity.ok().build();
 	}
 
-	
-	@DeleteMapping("/tweets/{id}")
-	public ResponseEntity<Void> deleteTweet(@PathVariable("id") Long tweetId, JwtAuthenticationToken token) {
-		var user = userRepository.findById(UUID.fromString(token.getName()));
-		var tweet = tweetRepository.findById(tweetId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-		var isAdmin = user.get().getRoles().stream()
-				.anyMatch(role -> role.getName().equalsIgnoreCase(Role.Values.ADMIN.name()));
-
-		if (isAdmin || tweet.getUser().getUserId().equals(UUID.fromString(token.getName()))) {
-			tweetRepository.deleteById(tweetId);
-
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-		}
-
-		return ResponseEntity.ok().build();
-	}
+	/*
+	 * @DeleteMapping("/tweets/{id}") public ResponseEntity<Void>
+	 * deleteTweet(@PathVariable("id") Long tweetId, JwtAuthenticationToken token) {
+	 * var user = userRepository.findById(UUID.fromString(token.getName())); var
+	 * tweet = tweetRepository.findById(tweetId) .orElseThrow(() -> new
+	 * ResponseStatusException(HttpStatus.NOT_FOUND));
+	 * 
+	 * var isAdmin = user.get().getRoles().stream() .anyMatch(role ->
+	 * role.getName().equalsIgnoreCase(Role.Values.ADMIN.name()));
+	 * 
+	 * if (isAdmin ||
+	 * tweet.getUser().getUserId().equals(UUID.fromString(token.getName()))) {
+	 * tweetRepository.deleteById(tweetId);
+	 * 
+	 * } else { return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); }
+	 * 
+	 * return ResponseEntity.ok().build(); }
+	 */
 	 
 }

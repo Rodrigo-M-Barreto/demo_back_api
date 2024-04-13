@@ -29,7 +29,7 @@ public class User {
     private UUID codUsuario;
 
     @Column(unique = true)
-    private String username;
+    private String username; 
     private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

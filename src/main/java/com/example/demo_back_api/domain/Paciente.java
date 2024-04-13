@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "cod_paciente")
     private Long codPaciente;
 

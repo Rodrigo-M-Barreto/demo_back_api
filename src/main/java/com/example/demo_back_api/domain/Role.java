@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_role")
     private Long codRole;
     private String nome;

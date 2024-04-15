@@ -1,4 +1,4 @@
-package com.example.demo_back_api.enuns;
+package com.example.demo_back_api.enums;
 
 import lombok.Getter;
 

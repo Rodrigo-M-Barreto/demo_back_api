@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -55,12 +56,22 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok().build();
-    }
-
+    } 
+    
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ResponseEntity<List<User>> listUsers() {
-        var users = userRepository.findAll();
+    public ResponseEntity<?> listUsers(@RequestHeader("Authorization") String authorizationHeader) {
+        // Verifica se o cabeçalho de autorização está presente e no formato correto
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token de acesso ausente ou no formato incorreto");
+        }
+        // Extrai o token do cabeçalho de autorização
+        String token = authorizationHeader.substring(7); // Remove "Bearer " do início
+
+        // Agora você pode usar o token para autenticação ou qualquer outra lógica necessária
+        // Por exemplo, você pode verificar se o token é válido, se está expirado, etc.
+
+        // Se tudo estiver correto, você pode prosseguir com a lógica para listar os usuários
+        List<User> users = userRepository.findAll();
         return ResponseEntity.ok(users);
-    }
+    } 
 }
